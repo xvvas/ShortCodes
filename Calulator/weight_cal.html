@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Calculadora de pérdida de peso</title>
+    <style type="text/css">
+      .Cacl {
+        font-family: Arial, sans-serif;
+        text-align: center;
+      }
+      .Cacl_title {
+        font-size: 32px;
+        font-family: "Rubik";
+        font-weight: 600;
+        margin-top: 50px;
+      }
+      .Cacl_form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 50px;
+      }
+      .Cacl_radio[type="range"] {
+        width: 80%;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <section class="Cacl">
+    <p class="Cacl_title">Calculadora de pérdida de peso</p>
+    <form id="weight-form" class="Cacl_form">
+      <label for="weight">Ingrese su peso en libras:</label>
+      <p><span id="weight-value">150</span> lb</p>
+      <input
+        type="range"
+        id="weight"
+        class="Cacl_radio"
+        min="165"
+        max="500"
+        step="1"
+        value="165"
+      />
+      <p>With our treatment in <span id="weeks-value">4</span> weeks</p>
+      <p class="Calc_subTitle"></p>
+      <p class="Cacl_subTitle">Pérdida de peso:</p>
+      <p class="Cacl_text"><span id="loss-value">15</span> lb</p>
+  
+    </form>
+
+    <script type="text/javascript">
+      let weightSlider = document.getElementById("weight");
+      let weightValue = document.getElementById("weight-value");
+      let lossValue = document.getElementById("loss-value");
+      let weeksValue = document.getElementById("weeks-value");
+
+      let timeoutId = null;
+
+      function calculateLossAndWeeks() {
+        let weight = parseInt(weightSlider.value);
+        let targetWeight = Math.round(weight * 0.15);
+        let weeks = 4 // supongamos que se quiere perder el x% del peso actual (el calculo esta echo con un peso de 220 lb)
+        let weightLoss = targetWeight;
+        let weightLossPerWeek = 6.25; // supongamos que se quiere perder x libras por semana
+        lossValue.innerHTML = weightLoss;
+        weeksValue.innerHTML = weeks;
+      }
+
+      function delayedCalculation() {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(function () {
+          calculateLossAndWeeks();
+        }, 500);
+      }
+
+      weightSlider.addEventListener("input", function () {
+        weightValue.innerHTML = this.value;
+        delayedCalculation();
+      });
+
+      calculateLossAndWeeks();
+    </script>
+  </section>
+</html>

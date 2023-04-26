@@ -1,0 +1,91 @@
+<body>
+  <style>
+    /* Estilos CSS para el degradado */
+    #texto-cambiante {
+      background-image: linear-gradient(
+        137deg,
+        rgba(70, 112, 255, 1) 0%,
+        rgba(179, 255, 68, 1) 54%
+      );
+      -webkit-text-fill-color: transparent;
+      -webkit-background-clip: text;
+      background-clip: text;
+      font-family: "Rubik";
+      font-weight: 600;
+      font-size: 42px;
+    }
+    .scale-in-center {
+      animation: scale-in-center 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    }
+
+    @keyframes scale-in-center {
+      0% {
+        transform: scale(0);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+    .scale-out-center {
+      animation: scale-out-center 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+    }
+    @keyframes scale-out-center {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 1;
+  }
+}
+  </style>
+  <p id="texto-cambiante" class="scale-in-center">
+    Miami Regenerative Medicine
+  </p>
+  <script>
+    const frases = ["our support", "the Body Program", "safe methods"];
+    let indice = 0;
+  
+    const texto = document.getElementById("texto-cambiante");
+  
+    // Agregar un pequeño retraso antes de comenzar la animación
+    setTimeout(() => {
+      // Iniciar la animación
+      animarTexto();
+    }, 1000);
+  
+    function animarTexto() {
+      // Agregar la clase de animación scale-out-center
+      texto.classList.add("scale-in-center");
+  
+      // Eliminar la clase de animación scale-in-center después de que se complete la animación
+      texto.addEventListener("animationend", () => {
+        texto.classList.remove("scale-in-center");
+  
+        // Cambiar el contenido del elemento de texto a la siguiente frase
+        texto.textContent = frases[indice];
+  
+        // Aumentar el índice para mostrar la siguiente frase
+        indice = (indice + 1) % frases.length;
+  
+        // Iniciar la animación de salida
+        requestAnimationFrame(() => {
+          texto.classList.add("scale-out-center");
+        });
+      }, { once: true });
+  
+      // Eliminar la clase de animación scale-out-center después de que se complete la animación
+      texto.addEventListener("animationend", () => {
+        texto.classList.remove("scale-out-center");
+  
+        // Iniciar la animación de entrada después de un pequeño retraso
+        setTimeout(() => {
+          animarTexto();
+        }, 1000);
+      }, { once: true });
+    }
+  </script>
+</body>
