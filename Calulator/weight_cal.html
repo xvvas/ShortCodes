@@ -1,83 +1,195 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Calculadora de pérdida de peso</title>
-    <style type="text/css">
-      .Cacl {
-        font-family: Arial, sans-serif;
-        text-align: center;
-      }
-      .Cacl_title {
-        font-size: 32px;
-        font-family: "Rubik";
-        font-weight: 600;
-        margin-top: 50px;
-      }
-      .Cacl_form {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        margin-top: 50px;
-      }
-      .Cacl_radio[type="range"] {
-        width: 80%;
-        margin-bottom: 10px;
-      }
-    </style>
-  </head>
-  <section class="Cacl">
-    <p class="Cacl_title">Calculadora de pérdida de peso</p>
-    <form id="weight-form" class="Cacl_form">
-      <label for="weight">Ingrese su peso en libras:</label>
-      <p><span id="weight-value">150</span> lb</p>
-      <input
-        type="range"
-        id="weight"
-        class="Cacl_radio"
-        min="165"
-        max="500"
-        step="1"
-        value="165"
-      />
-      <p>With our treatment in <span id="weeks-value">4</span> weeks</p>
-      <p class="Calc_subTitle"></p>
-      <p class="Cacl_subTitle">Pérdida de peso:</p>
-      <p class="Cacl_text"><span id="loss-value">15</span> lb</p>
-  
-    </form>
+<style type="text/css">
+  .color-change-3x {
+    animation: color-change-3x 8s linear infinite alternate both;
+  }
+  @keyframes color-change-3x {
+    0% {
+      background: #19dcea;
+    }
+    50% {
+      background: #2cffae;
+    }
+    100% {
+      background: #22ea8d;
+    }
+  }
+  .Cacl {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 2rem;
+    border-radius: 18px;
+    background: white;
+  }
+  .Cacl_title {
+    font-size: 32px;
+    font-family: "Rubik";
+    font-weight: 600;
+    margin-top: 50px;
+    color: #02ceff;
+  }
+  .Cacl_rangeTitle {
+    font-family: "Rubik";
+    font-size: 21px;
+    color: gray;
+  }
+  .Cacl_form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 1rem;
+    margin-top: 50px;
+  }
+  .Cacl_radio[type="range"] {
+    width: 80%;
+    margin-bottom: 10px;
+    appearance: none;
+    height: 0.5rem;
+    border-radius: 0.6rem;
+    background-image: linear-gradient(45deg, #19dcea, #22ea8d);
+    transition: 0.5s ease-in-out;
+  }
+  .Cacl_radio::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    background: #44d3ff;
+    border: none;
+    border-radius: 50%;
+    
+    cursor: pointer;
+    transition: 0.5s ease-in-out;
+  }
 
-    <script type="text/javascript">
-      let weightSlider = document.getElementById("weight");
-      let weightValue = document.getElementById("weight-value");
-      let lossValue = document.getElementById("loss-value");
-      let weeksValue = document.getElementById("weeks-value");
+  .Cacl_radio::-webkit-slider-thumb:hover {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    background: #e1f8ff;
+    border: none;
+    border-radius: 50%;
+    box-shadow: -1px 0 0 6px rgba(146, 146, 201, 0.164);
+    cursor: pointer;
+    transition: 0.5s ease-in-out;
+  }
 
-      let timeoutId = null;
+  .Cacl_radio::-moz-range-thumb:hover {
+    width: 15px;
+    height: 15px;
+    background: #44d3ff;
+    border: none;
+    border-radius: 50%;
+    box-shadow: -1px 0 0 6px rgba(146, 146, 201, 0.164);
+    cursor: pointer;
+    transition: 0.5s ease-in-out;
+  }
 
-      function calculateLossAndWeeks() {
-        let weight = parseInt(weightSlider.value);
-        let targetWeight = Math.round(weight * 0.15);
-        let weeks = 4 // supongamos que se quiere perder el x% del peso actual (el calculo esta echo con un peso de 220 lb)
-        let weightLoss = targetWeight;
-        let weightLossPerWeek = 6.25; // supongamos que se quiere perder x libras por semana
+  .Cacl_radio::-ms-thumb:hover {
+    width: 15px;
+    height: 15px;
+    background: #44d3ff;
+    border: none;
+    border-radius: 50%;
+    box-shadow: -1px 0 0 6px rgba(146, 146, 201, 0.164);
+    cursor: pointer;
+    transition: 0.5s ease-in-out;
+  }
+  .Cacl_ReContainer {
+    display: flex;
+    flex-direction: row;
+    column-gap: 3rem;
+    padding: 2rem;
+    border-radius: 13px;
+    color: whitesmoke;
+    font-family: "Rubik";
+    font-size: 21px;
+  }
+  .Cacl_text{
+    font-size: 3rem;
+  }
+  .lb{
+    font-size: 3rem;
+  }
+</style>
+<section class="Cacl">
+  <p class="Cacl_title">How much weight will you lose with our treatment?</p>
+  <form id="weight-form" class="Cacl_form">
+    <label for="weight" class="Cacl_rangeTitle"
+      >Enter your current weight (lbs):</label
+    >
+    <p class="Cacl_rangeTitle"><span id="weight-value" class="lb">150</span>lb</p>
+    <input
+      type="range"
+      id="weight"
+      class="Cacl_radio"
+      min="165"
+      max="500"
+      step="1"
+      value="165"
+    />
+    <div class="Cacl_ReContainer color-change-3x">
+
+      <div class="Cacl_txtContainer">
+        <p class="Cacl_subTitle">Total weight lost:</p>
+        <p class="Cacl_text"><span id="loss-value">15</span> lb</p>
+      </div>
+    </div>
+  </form>
+</section>
+
+<script type="text/javascript">
+  let weightSlider = document.getElementById("weight");
+  let weightValue = document.getElementById("weight-value");
+  let lossValue = document.getElementById("loss-value");
+  let weeksValue = document.getElementById("weeks-value");
+
+  let timeoutId = null;
+
+  lossValue.addEventListener("input", function () {
+    weightValue.innerHTML = lossValue.value;
+    lossValue.style.fontSize = parseInt(lossValue.value) * 0.15 + "px";
+    lossValue.classList.add("loss-value--selected");
+  });
+
+  function calculateLossAndWeeks() {
+    let weight = parseInt(weightSlider.value);
+    let targetWeight = Math.round(weight * 0.15); // Percentage of total weight loss
+    let weeks = 16; //Number of weeks in which the allocated % is lost
+    let weightLossPerWeek = Math.round(targetWeight / weeks);
+    let weightLoss = weightLossPerWeek * weeks;
+
+    let currentLoss = 0;
+    let currentWeeks = 0;
+    let intervalId = setInterval(function () {
+      currentLoss += Math.ceil(weightLoss / 20);
+      currentWeeks += Math.ceil(weightLossPerWeek / 20);
+      if (currentLoss >= weightLoss) {
         lossValue.innerHTML = weightLoss;
-        weeksValue.innerHTML = weeks;
+        clearInterval(intervalId);
+      } else {
+        lossValue.innerHTML = currentLoss;
+        weeksValue.innerHTML = currentWeeks;
       }
+    }, 50);
+  }
 
-      function delayedCalculation() {
-        clearTimeout(timeoutId);
-        timeoutId = setTimeout(function () {
-          calculateLossAndWeeks();
-        }, 500);
-      }
-
-      weightSlider.addEventListener("input", function () {
-        weightValue.innerHTML = this.value;
-        delayedCalculation();
-      });
-
+  function delayedCalculation() {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(function () {
       calculateLossAndWeeks();
-    </script>
-  </section>
-</html>
+    }, 500);
+  }
+
+  weightSlider.addEventListener("input", function () {
+    weightValue.innerHTML = this.value;
+    delayedCalculation();
+  });
+
+  calculateLossAndWeeks();
+</script>

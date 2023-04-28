@@ -1,0 +1,113 @@
+<head>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+</head>
+<div class="card-container">
+    <div class="card-wrapper">
+      <div class="card -bg1">
+          <p>In Wegovy clinical trials, patients lost an average of 15% of their body weight*</p>
+          <div class="ico-button">
+              <i class="fi fi-sr-add"></i>
+          </div>
+         </div>
+      <div class="card">Card 2</div>
+      <div class="card">Card 3</div>
+      <div class="card">Card 4</div>
+    </div>
+    <div class="nav">
+      <button class="prev-btn">Anterior</button>
+      <button class="next-btn">Siguiente</button>
+    </div>
+  </div>
+  <style>
+  
+    .card-container {
+      width: 100%;
+      position: relative
+    }
+  
+    .card-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: row;
+      column-gap: 24px;
+      width: 130%;
+      height: 80vh;
+      transition: transform 0.3s ease-in-out;
+      overflow: hidden;
+    }
+  
+    .card {
+      position: relative;
+      width: calc(100%/3);
+      height: 100%;
+      background-color: #ddd;
+      row-gap: 30%;
+      border-radius: 15px;
+      font-size: 24px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px -1px rgba(0, 0, 0, 0.16), 0 1px 4px -1px rgba(0, 0, 0, 0.04);
+    }
+    .ico-button{
+        width: 80%;
+        display: flex;
+        flex-direction: row;
+        justify-content:  right;
+        align-items: center;
+        text-align: right;
+        font-size: 32px;
+
+    }
+    
+    .-bg1{
+       display: flex;
+       align-items: center;
+       justify-content: start;
+       flex-direction: column;
+       background-image: url('https://images.ctfassets.net/jj2wf7627pjc/2yhXEOc4DpvFOkiFdRfUrz/1ec275d442185abf2a1e76b698ec03d7/chart.png?fm=webp&q=80&w=1120');
+       background-size: cover;
+       background-position: center
+    }
+  
+    .nav {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      column-gap: 5px;
+      padding: 10px;
+   
+    }
+  
+    .prev-btn,
+    .next-btn {
+      padding: 10px 20px;
+      background-color: #333;
+      color: #fff;
+      border-radius: 15px;
+      border: none;
+      cursor: pointer;
+    }
+  
+    .prev-btn:hover,
+    .next-btn:hover {
+      background-color: #555;
+    }
+  </style>
+  <script>
+    const cardWrapper = document.querySelector(".card-wrapper");
+    const prevBtn = document.querySelector(".prev-btn");
+    const nextBtn = document.querySelector(".next-btn");
+  
+    let currentIndex = 0;
+  
+    prevBtn.addEventListener("click", () => {
+      currentIndex = currentIndex > 0 ? currentIndex - 1 : 0;
+      cardWrapper.style.transform = `translateX(-${currentIndex * 20}%)`;
+    });
+  
+    nextBtn.addEventListener("click", () => {
+      currentIndex = currentIndex < 2 ? currentIndex + 1 : 2;
+      cardWrapper.style.transform = `translateX(-${currentIndex * 24}%)`;
+    });
+  </script>
+  
