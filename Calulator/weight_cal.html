@@ -20,9 +20,10 @@
     align-items: center;
     font-family: Arial, sans-serif;
     text-align: center;
-    padding: 2rem;
+    padding: 1rem;
     border-radius: 18px;
     background: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
   }
   .Cacl_title {
     font-size: 32px;
@@ -160,7 +161,7 @@
   function calculateLossAndWeeks() {
     let weight = parseInt(weightSlider.value);
     let targetWeight = Math.round(weight * 0.15); // Percentage of total weight loss
-    let weeks = 16; //Number of weeks in which the allocated % is lost
+    let weeks = 4; //Number of weeks in which the allocated % is lost
     let weightLossPerWeek = Math.round(targetWeight / weeks);
     let weightLoss = weightLossPerWeek * weeks;
 
@@ -193,3 +194,4 @@
 
   calculateLossAndWeeks();
 </script>
+
